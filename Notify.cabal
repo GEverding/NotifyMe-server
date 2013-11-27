@@ -19,7 +19,7 @@ version:             0.1.0.0
 -- description:
 
 -- URL for the project homepage or repository.
-homepage:            
+homepage:
 
 -- The license under which the package is released.
 license:             AllRightsReserved
@@ -58,16 +58,30 @@ executable notify
 
   -- LANGUAGE extensions used by modules in this package.
   other-extensions:    OverloadedStrings
+                     , EmptyDataDecls
+                     , FlexibleContexts
+                     , FlexibleInstances
+                     , GADTs
+                     , QuasiQuotes
+                     , TemplateHaskell
+                     , TypeFamilies
+                     , TypeSynonymInstances
 
   -- Other library packages from which modules are imported.
   build-depends: base >=4.6 && <4.7
                , scotty >=0.4 && <0.5
                , scotty-blaze
+               , blaze-html >=0.6 && <0.7
+               , http-types ==0.7.*
                , text
                , mtl
-               , blaze-html >=0.6 && <0.7
                , wai ==1.4.*
-               , wai-extra
+               , wai-extra 
+               , wai-middleware-static ==0.3.2
+               , transformers ==0.3.0.0
+               , persistent
+               , persistent-template
+               , persistent-postgresql
                , time
 
 
