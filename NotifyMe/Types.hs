@@ -2,7 +2,7 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 
-module Notify.Types where
+module NotifyMe.Types where
 
 import Data.Text (Text)
 import Web.Scotty (ScottyM, ActionM)
@@ -14,22 +14,22 @@ import Control.Applicative
 
 type BaseRenderer = Text -> Html -> Html
 
-data NotifyConfig = NotifyConfig { configRender :: BaseRenderer }
+data NotifyMeConfig = NotifyMeConfig { configRender :: BaseRenderer }
 
-newtype NotifyM a = NotifyM { runNotify :: ReaderT NotifyConfig ScottyM a }
-               deriving (Monad, Functor, MonadReader NotifyConfig)
+newtype NotifyMeM a = NotifyMeM { runNotifyMe :: ReaderT NotifyMeConfig ScottyM a }
+               deriving (Monad, Functor, MonadReader NotifyMeConfig)
 
 
 class Monad m => MonadScotty m where
   liftScotty :: ScottyM a -> m a
 
-instance MonadScotty NotifyM where
-  liftScotty = NotifyM . lift
+instance MonadScotty NotifyMeM where
+  liftScotty = NotifyMeM . lift
 
-toScotty :: NotifyConfig-> NotifyM a -> ScottyM a
-toScotty c m = runReaderT (runNotify m) c
+toScotty :: NotifyMeConfig-> NotifyMeM a -> ScottyM a
+toScotty c m = runReaderT (runNotifyMe m) c
 
-renderer :: NotifyM (Text -> Html -> ActionM ())
+renderer :: NotifyMeM (Text -> Html -> ActionM ())
 renderer = renderer' . configRender <$> ask
 
 renderer' :: BaseRenderer -> Text -> Html -> ActionM ()

@@ -1,7 +1,7 @@
 
 {-# LANGUAGE OverloadedStrings #-}
 
-module Notify.Routes.Common.Templates (
+module NotifyMe.Routes.Common.Templates (
   base
 ) where
 
@@ -15,7 +15,7 @@ base :: Text -> Html -> Html
 base t content =
   docTypeHtml $ do
     head $ do
-      title (toHtml $ t <> " | Notify")
+      title (toHtml $ t <> " | NotifyMe")
     body $ do
       div ! A.class_ "content" $ content
       div ! A.class_ "content2" $ content

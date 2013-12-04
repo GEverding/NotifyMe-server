@@ -1,7 +1,7 @@
 
 {-# LANGUAGE OverloadedStrings #-}
 
-module Notify.Routes.Home.Templates (
+module NotifyMe.Routes.Home.Templates (
   index
 ) where
 
