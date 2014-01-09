@@ -2,38 +2,33 @@
 
 module Main (main) where
 
-import qualified NotifyMe.Routes.Common.Templates as CommonTemplates
+import Data.Text
+import Web.Scotty (scotty, middleware, get, post, delete)
+import Network.Wai.Middleware.RequestLogger
+import Data.Time (getCurrentTime)
+import Text.Blaze.Html5 (h1)
+import Text.Blaze.Html5.Attributes
+import Data.Aeson ((.=), object)
+import qualified Web.Scotty as S
+import qualified Text.Blaze.Html5 as H
+import qualified Text.Blaze.Html5.Attributes as A
+import Text.Blaze.Html.Renderer.Text (renderHtml)
+import qualified Data.Map as M
+import Control.Monad.IO.Class (liftIO)
+import Data.Acid
 
 import NotifyMe.Models.User
-import NotifyMe.Routes (routes)
-import NotifyMe.Types (toScotty, NotifyMeConfig(..))
-import Web.Scotty (scotty, middleware)
-import Network.Wai.Middleware.RequestLogger
-import Database.Persist
-import Database.Persist.TH
-import Database.Persist.MySQL
-import Database.MySQL.Base.Types
-import Control.Monad.IO.Class (liftIO)
-import Control.Monad.Trans.Resource (runResourceT, ResourceT)
-
-defaultConfig = NotifyMeConfig CommonTemplates.base
-
-toScotty' = toScotty defaultConfig
-
-connectInfo = ConnectInfo "localhost" 3302 "pusher" "pusher" "NotifyMe" [CharsetName "utf8"] "" Nothing
-
-{-runDb :: SqlPersist (ResourceT IO) a -> IO a-}
-{-runDb query = runResourceT . withPostgresqlPool connStr 10 $ \pool -> do-}
-      {-flip runSqlPersistMPool pool $ do query-}
 
 main :: IO()
 main = do
-  withMySQLPool connectInfo 10 $ \pool -> do
-      flip runSqlPersistMPool pool $ do
-          runMigration migrateAll
-          insert $ User "test" "test@example.com"
 
   scotty 3000 $ do
     middleware logStdoutDev
-    (toScotty' routes)
+    get "/" $ do
+      S.html . renderHtml $ do
+        h1 "Hello Wrld"
 
+    post "/api/v1" $ do
+      test <- S.param "test"
+      liftIO $ print $ show (test::String)
+      S.json $ object ["ok" .= ("Okay"::String)]

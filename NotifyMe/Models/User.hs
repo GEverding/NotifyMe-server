@@ -1,24 +1,26 @@
-{-# LANGUAGE EmptyDataDecls       #-}
-{-# LANGUAGE FlexibleContexts     #-}
-{-# LANGUAGE FlexibleInstances    #-}
-{-# LANGUAGE GADTs                #-}
-{-# LANGUAGE OverloadedStrings    #-}
-{-# LANGUAGE QuasiQuotes          #-}
-{-# LANGUAGE TemplateHaskell      #-}
-{-# LANGUAGE TypeFamilies         #-}
-{-# LANGUAGE TypeSynonymInstances #-}
-{-# OPTIONS_GHC -fno-warn-orphans #-}
+-- User.hs
 
-module NotifyMe.Models.User where
-import Data.Text (Text)
-import Data.Time (UTCTime)
-import Database.Persist
-import Database.Persist.TH
+module NotifyMe.Models.User (
+                            User(..),
+                            checkPassword
+                            )
+where
 
+import NotifyMe.Types (UserId)
+import Data.Text (Text(..), unpack)
+import Crypto.BCrypt (validatePassword)
+import Control.Applicative ((<$>),(<*>))
+import Control.Monad ((>>=))
+import qualified Data.ByteString.Char8 as C
 
-share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
-      User
-        username String
-        email String
-        deriving Show Eq Ord
-|]
+data User = User {
+          username :: Text,
+          password :: Text,
+          userId :: UserId
+          } deriving (Show)
+
+checkPassword :: Maybe Text -> Maybe Text -> Maybe Bool
+checkPassword pswdUser pswdProvided = 
+  validatePassword <$> (pswdUser >>= (\x -> return $ p x))  <*> (pswdProvided >>= (\x -> return $ p x))
+  where 
+        p = C.pack . unpack

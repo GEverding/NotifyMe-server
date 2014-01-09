@@ -1,4 +1,3 @@
-
 {-# LANGUAGE EmptyDataDecls       #-}
 {-# LANGUAGE FlexibleContexts     #-}
 {-# LANGUAGE FlexibleInstances    #-}
@@ -10,18 +9,21 @@
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
-module NotifyMe.Models.User (
-)	where
-import NotifyMe.Models.User
+module NotifyMe.Models.User where
 import Data.Text (Text)
 import Data.Time (UTCTime)
 import Database.Persist
 import Database.Persist.TH
 
 
-share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
-      Push
-        username UserName
-        timestamp UTCTime default=now()
+share [mkPersist sqlSettings, teAll"] [persistLowerCase|
+      User
+        username Text
+        email String
+        deriving Show Eq Ord
+
+      Event
+        timestamp UTCTime 
+        userId Int
         deriving Show Eq Ord
 |]
