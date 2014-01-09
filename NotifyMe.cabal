@@ -70,7 +70,6 @@ executable notify
   -- Other library packages from which modules are imported.
   build-depends: base >=4.6 && <4.7
                , scotty
-               , scotty-blaze
                , blaze-html >=0.6 && <0.7
                , http-types ==0.8.*
                , resourcet
