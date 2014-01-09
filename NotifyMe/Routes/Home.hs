@@ -12,4 +12,6 @@ index = do
   r <- renderer
   liftScotty $ get "/" (r "Home" Template.index)
 
+  liftScotty $ get "/api/connect"
+
 routes = index
