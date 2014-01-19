@@ -69,13 +69,13 @@ executable notify
 
   -- Other library packages from which modules are imported.
   build-depends: base >=4.6 && <4.7
-               , scotty
-               , blaze-html >=0.6 && <0.7
+               , scotty >=0.6
+               , blaze-html >=0.6
                , http-types ==0.8.*
                , resourcet
                , text
                , mtl
-               , wai ==2.0.0
+               , wai >=2.0.0
                , wai-extra
                , wai-middleware-static
                , transformers ==0.3.0.0
