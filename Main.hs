@@ -32,3 +32,4 @@ main = do
       test <- S.param "test"
       liftIO $ print $ show (test::String)
       S.json $ object ["ok" .= ("Okay"::String)]
+
