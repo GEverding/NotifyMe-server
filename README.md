@@ -1,4 +1,4 @@
-NotifyMe-server
+NotifyMe Backend (WIP)
 ===============
 
-Haskell Backend for NotifyMe
+TODO
