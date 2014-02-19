@@ -1,9 +1,9 @@
 -- Event.hs
 
-module NotifyMe.Models.Event (
+module Models.Event (
                              Event(..),
 ) where
-import NotifyMe.Types(EventId, UserId)
+import Models.Types (EventId, UserId)
 import Data.Text (Text)
 import Data.Time
 

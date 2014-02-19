@@ -1,5 +1,5 @@
 
-module NotifyMe.Types (
+module Models.Types (
   UserId,
   EventId
 )	where

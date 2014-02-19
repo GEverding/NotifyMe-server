@@ -68,9 +68,10 @@ executable notify
                      , TypeSynonymInstances
 
   -- Other library packages from which modules are imported.
-  build-depends: base >=4.6 && <4.7
+  build-depends: base >=4.6 && <4.8
                , scotty >=0.6
                , blaze-html >=0.6
+               , blaze-markup
                , http-types ==0.8.*
                , resourcet
                , text
@@ -86,8 +87,6 @@ executable notify
                , uuid
                , bcrypt == 0.0.4
                , bytestring >=0.10.0
-               , acid-state >= 0.12.0 && <= 0.13.0
-
 
   -- Directories containing source files.
   -- hs-source-dirs:

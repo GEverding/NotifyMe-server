@@ -1,12 +1,12 @@
 -- User.hs
 
-module NotifyMe.Models.User (
+module Models.User (
                             User(..),
                             checkPassword
                             )
 where
 
-import NotifyMe.Types (UserId)
+import Models.Types (UserId)
 import Data.Text (Text(..), unpack)
 import Crypto.BCrypt (validatePassword)
 import Control.Applicative ((<$>),(<*>))
